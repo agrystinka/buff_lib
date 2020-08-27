@@ -2,37 +2,31 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define _log printf
-// static inline void _log(*char str, ...)
-// {
-//   printf(str);
-// }
-
-void sk_catch_err(sk_err err)
+void bl_catch_err(bl_err err)
 {
   switch(err){
-    case SK_ENOTIMPLEMENTED:
-      _log("Some feature is not implemented yet");
+    case BL_ENOTIMPLEMENTED:
+      _log("ERR: Some feature is not implemented yet.\n");
       break;
-    case SK_EUNAVAILABLE:
-      _log("Could not be done");
+    case BL_EUNAVAILABLE:
+      _log("ERR: Could not be done.\n");
       break;
-    case SK_EWRONGARG:
-      _log("Wrong argument");
+    case BL_EWRONGARG:
+      _log("ERR: Wrong argument.\n");
       break;
-    case SK_ENENARG:
-      _log("SK_ENENARG");
+    case BL_ENENARG:
+      _log("ERR: SK_ENENARG.\n");
       break;
-    case SK_ERANGE:
-      _log("To much args to read or write");
+    case BL_ERANGE:
+      _log("ERR: To much args.\n");
       break;
-    case SK_EFULL:
-      _log("FIFO buffer is already empty");
+    case BL_EFULL:
+      _log("ERR: There is too few place in buffer to alocate your data.\n");
       break;
-    case SK_EEMPTY:
-      _log("FIFO buffer is empty");
+    case BL_EEMPTY:
+      _log("ERR: FIFO buffer is empty.\n");
       break;
     default:
-      _log("Unknown error");
+      _log("ERR: Unknown error.\n");
     }
 }

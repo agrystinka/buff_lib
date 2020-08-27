@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 
-struct sk_bfifo {
+struct bl_bfifo {
 	uint8_t *buf;
 	uint32_t buflen;
 	uint32_t rdidx;
@@ -13,10 +13,10 @@ struct sk_bfifo {
 	uint8_t isfull : 1;
 };
 
-typedef struct sk_bfifo sk_bfifo_t;
+typedef struct bl_bfifo bl_bfifo_t;
 
-sk_err sk_bfifo_init(sk_bfifo_t *fifo, uint8_t *buf, uint32_t buflen);
-uint32_t sk_bfifo_cur_length(sk_bfifo_t *fifo);
-sk_err sk_bfifo_put(sk_bfifo_t *fifo, uint8_t *barr, uint32_t len);
-sk_err sk_bfifo_get(sk_bfifo_t *fifo, uint8_t *barr, uint32_t len);
-void _printfifo(sk_bfifo_t *fifo);
+bl_err bl_bfifo_init(bl_bfifo_t *fifo, uint8_t *buf, uint32_t buflen);
+uint32_t bl_bfifo_cur_length(bl_bfifo_t *fifo);
+bl_err bl_bfifo_put(bl_bfifo_t *fifo, uint8_t *barr, uint32_t len);
+bl_err bl_bfifo_get(bl_bfifo_t *fifo, uint8_t *barr, uint32_t len);
+void _printfifo(bl_bfifo_t *fifo);
