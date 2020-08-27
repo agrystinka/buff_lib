@@ -1,5 +1,6 @@
-#include "acount.h"
-#include "errors.h"
+//exapmple of usage
+#include "inc/bufflib.h"
+#include "inc/errors.h"
 #include <stdint.h>
 #include <stdio.h>
 
@@ -46,7 +47,46 @@ int main(void)
     printarr(tb.buf, tb.buflen);
   }
 
-  uint8_t buff_read[3] = {0};
+  tmp = bl_bfifo_put(&tb, &buf_add[0], 4);
+  if(BL_EOK != tmp)
+    bl_catch_err(tmp);
+  else{
+    printf("Fine 1\n");
+    _printfifo(&tb);
+    printf("Length %d\n", bl_bfifo_cur_length(&tb));
+    printarr(tb.buf, tb.buflen);
+  }
+
+  tmp = bl_bfifo_put(&tb, &buf_add[0], 4);
+  if(BL_EOK != tmp)
+    bl_catch_err(tmp);
+  else{
+    printf("Fine 1\n");
+    _printfifo(&tb);
+    printf("Length %d\n", bl_bfifo_cur_length(&tb));
+    printarr(tb.buf, tb.buflen);
+  }
+
+  tmp = bl_bfifo_put(&tb, &buf_add[0], 4);
+  if(BL_EOK != tmp)
+    bl_catch_err(tmp);
+  else{
+    printf("Fine 1\n");
+    _printfifo(&tb);
+    printf("Length %d\n", bl_bfifo_cur_length(&tb));
+    printarr(tb.buf, tb.buflen);
+  }
+  tmp = bl_bfifo_put(&tb, &buf_add[0], 4);
+  if(BL_EOK != tmp)
+    bl_catch_err(tmp);
+  else{
+    printf("Fine 1\n");
+    _printfifo(&tb);
+    printf("Length %d\n", bl_bfifo_cur_length(&tb));
+    printarr(tb.buf, tb.buflen);
+  }
+
+  uint8_t buff_read[5] = {0};
   tmp = bl_bfifo_get(&tb, buff_read, sizeof(buff_read));
   if(BL_EOK != tmp)
     bl_catch_err(tmp);

@@ -1,9 +1,11 @@
+#ifndef BUFF_LIB_H
+#define BUFF_LIB_H
+
 #include "errors.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stddef.h>
-
 
 struct bl_bfifo {
 	uint8_t *buf;
@@ -20,3 +22,5 @@ uint32_t bl_bfifo_cur_length(bl_bfifo_t *fifo);
 bl_err bl_bfifo_put(bl_bfifo_t *fifo, uint8_t *barr, uint32_t len);
 bl_err bl_bfifo_get(bl_bfifo_t *fifo, uint8_t *barr, uint32_t len);
 void _printfifo(bl_bfifo_t *fifo);
+
+#endif

@@ -1,4 +1,4 @@
-#include "acount.h"
+#include "bufflib.h"
 
 static inline bool _bl_bfifo_is_full(bl_bfifo_t *fifo)
 {
@@ -65,7 +65,7 @@ bl_err bl_bfifo_put(bl_bfifo_t *fifo, uint8_t *barr, uint32_t len)
 		return BL_EWRONGARG;
 
   uint32_t curlenght = bl_bfifo_cur_length(fifo);
-  if(curlenght < 0)
+  if((bl_err) curlenght < 0)
     return curlenght;
 
   if (_bl_bfifo_is_full(fifo) || len + curlenght > fifo->buflen)
@@ -98,7 +98,7 @@ bl_err bl_bfifo_get(bl_bfifo_t *fifo, uint8_t *barr, uint32_t len)
 
   uint32_t curlenght = bl_bfifo_cur_length(fifo);
 
-  if(curlenght < 0)
+  if((bl_err)curlenght < 0)
     return curlenght;
 
   if(curlenght == 0)

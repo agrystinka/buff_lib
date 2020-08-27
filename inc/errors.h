@@ -1,12 +1,12 @@
 /**
- * libsk errors - provides definitions for all error codes in buff_lib
+ * errors - provides definitions for all error codes in buff_lib
  *
  * User may check corresponding error codes against this definitions.
  * It is not requried to include this file in user code as it is already included
  * everywhere these error definitions are used (unless you want to use same codes for own routines)
  */
- #ifndef ERRORS_H
- #define ERRORS_H
+ #ifndef BL_ERRORS_H
+ #define BL_ERRORS_H
 
 //If LOG == 1 put logging in stderr, else - no loging
  #define LOG 1
