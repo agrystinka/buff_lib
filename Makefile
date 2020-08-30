@@ -1,38 +1,50 @@
 # The main (project top) file without .c
-#TARGET_STATIC = buff-lib.so
-TARGET_DYNAMIC = bufflib.so
+TARGET_DYNAMIC = libbuff.so
+TARGET_STATIC= libbuff.a
 # buff_lib sourses
 SRC += fifo.c errors.c
 
 CC = gcc
-CFLAGS = -std=gnu18 -O2 -Wall -Wextra -Wpedantic -pthread -fPIC
+CFLAGS = -std=gnu18 -O2 -Wall -Wextra -Wpedantic
 
-BUILDDIR = ./build
+BUILDDIR_D = ./build_dynamic
+BUILDDIR_S = ./build_static
 SRCDIR = ./src
 INCDIR = ./inc
 
-.PHONY: all clean tidy
+.PHONY: all dynamic static clean tidy
 
-all: $(BUILDDIR) $(TARGET_DYNAMIC)
-	rm -f socket
-	rm -f *.txt
+all: $(BUILDDIR_D) $(TARGET_DYNAMIC) $(BUILDDIR_S) $(TARGET_STATIC)
 
-$(BUILDDIR)/%.o: $(SRCDIR)/%.c | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(addprefix -I,$(INCDIR)) -c $< -o $@
+dynamic: $(BUILDDIR_D) $(TARGET_DYNAMIC)
 
-$(TARGET_DYNAMIC): $(addprefix $(BUILDDIR)/,$(SRC:.c=.o))
+static: $(BUILDDIR_S) $(TARGET_STATIC)
+
+$(BUILDDIR_D)/%.o: $(SRCDIR)/%.c | $(BUILDDIR_D)
+	$(CC) $(CFLAGS) -fPIC $(addprefix -I,$(INCDIR)) -c $< -o $@
+
+$(TARGET_DYNAMIC): $(addprefix $(BUILDDIR_D)/,$(SRC:.c=.o))
 	$(CC) $(CFLAGS) -shared $^ -o $@
 
-$(BUILDDIR):
+$(BUILDDIR_D):
+	mkdir -p $@
+
+$(BUILDDIR_S)/%.o: $(SRCDIR)/%.c | $(BUILDDIR_S)
+	$(CC) $(CFLAGS) $(addprefix -I,$(INCDIR)) -c $< -o $@
+
+$(TARGET_STATIC): $(addprefix $(BUILDDIR_S)/,$(SRC:.c=.o))
+	ar -crs $(TARGET_STATIC) $@
+
+$(BUILDDIR_S):
 	mkdir -p $@
 
 clean:
-	rm -rf $(BUILDDIR)
+	rm -rf $(BUILDDIR_D)
+	rm -rf $(BUILDDIR_S)
 
 tidy: clean
-	rm -f $(CLI)
-	rm -f $(SNIFFER)
-
+	rm -f *.so
+	rm -f *.a
 
 lint: lint-all
 
